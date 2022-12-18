@@ -1,6 +1,7 @@
 package com.example.explorer.Chatacter.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 
 @Entity
 @Table(name = "userChar")

@@ -1,13 +1,14 @@
 package com.example.explorer.Chatacter.model;
 
-import javax.persistence.*;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "race")
 public class Race {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private String raceName;
     private String raceDescription;
     private Integer strMod;
