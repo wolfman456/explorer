@@ -1,4 +1,4 @@
-package com.example.explorer.Chatacter.model;
+package com.example.explorer.Character.model;
 
 public class BaseCharater{
     private String race;
