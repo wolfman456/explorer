@@ -1,4 +1,4 @@
-package com.example.explorer.User.UserController;
+package com.example.explorer.user.UserController;
 
 import org.springframework.web.bind.annotation.RestController;
 
