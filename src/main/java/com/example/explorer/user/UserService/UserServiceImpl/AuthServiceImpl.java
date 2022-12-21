@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -52,9 +53,7 @@ public class AuthServiceImpl implements AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtTokenProvider.generateToken(authentication);
-
-        return token;
+        return jwtTokenProvider.generateToken(authentication);
     }
 
     @Override
@@ -77,10 +76,10 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
         Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName("ROLE_USER").get();
-        if (!userRole.getName().isEmpty()) {
-
-            roles.add(userRole);
+        Optional<Role> userRole = roleRepository.findByName("ROLE_USER");
+        if (userRole.isPresent()) {
+            Role role = userRole.get();
+            roles.add(role);
             user.setRoles(roles);
 
             userRepository.save(user);
