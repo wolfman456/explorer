@@ -12,19 +12,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/v1/")
 public class AuthController {
     @Autowired
     private AuthService authService;
 
-//    public AuthController(AuthService authService) {
-//        this.authService = authService;
-//    }
-    private static Logger logger = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     // Build Login REST API
     @GetMapping(value = "/login")
     public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto){
+        logger.info("Calling login method");
         String token = authService.login(loginDto);
 
         JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();

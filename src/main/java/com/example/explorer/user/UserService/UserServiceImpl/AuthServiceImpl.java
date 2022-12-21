@@ -1,5 +1,6 @@
 package com.example.explorer.user.UserService.UserServiceImpl;
 
+import com.example.explorer.exception.InformationNotFoundException;
 import com.example.explorer.user.User_model.Role;
 import com.example.explorer.user.User_model.UserModel;
 import com.example.explorer.user.UserService.AuthService;
@@ -77,12 +78,16 @@ public class AuthServiceImpl implements AuthService {
 
         Set<Role> roles = new HashSet<>();
         Role userRole = roleRepository.findByName("ROLE_USER").get();
+        if (!userRole.getName().isEmpty()) {
 
-        roles.add(userRole);
-        user.setRoles(roles);
+            roles.add(userRole);
+            user.setRoles(roles);
 
-        userRepository.save(user);
+            userRepository.save(user);
 
-        return "User registered successfully!.";
+            return "User registered successfully!.";
+        }else {
+            throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "Role missing", LocalDateTime.now());
+        }
     }
 }
