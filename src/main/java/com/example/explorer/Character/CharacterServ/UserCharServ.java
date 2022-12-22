@@ -1,4 +1,4 @@
 package com.example.explorer.Character.CharacterServ;
 
-public class UserCharServ {
+public interface UserCharServ {
 }

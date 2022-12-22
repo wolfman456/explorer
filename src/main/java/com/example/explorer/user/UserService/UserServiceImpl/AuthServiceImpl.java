@@ -1,6 +1,7 @@
 package com.example.explorer.user.UserService.UserServiceImpl;
 
 import com.example.explorer.exception.InformationNotFoundException;
+import com.example.explorer.user.User_model.ERole;
 import com.example.explorer.user.User_model.Role;
 import com.example.explorer.user.User_model.UserModel;
 import com.example.explorer.user.UserService.AuthService;
@@ -60,12 +61,12 @@ public class AuthServiceImpl implements AuthService {
     public String register(RegisterDto registerDto) {
 
         // add check for username exists in database
-        if(userRepository.existsByUserName(registerDto.getUserName())){
+        if (userRepository.existsByUserName(registerDto.getUserName())) {
             throw new InformationExistException(HttpStatus.BAD_REQUEST, "Username is already exists!.", LocalDateTime.now());
         }
 
         // add check for email exists in database
-        if(userRepository.existsByEmail(registerDto.getEmail())){
+        if (userRepository.existsByEmail(registerDto.getEmail())) {
             throw new InformationExistException(HttpStatus.BAD_REQUEST, "Email is already exists!.", LocalDateTime.now());
         }
 
@@ -74,19 +75,39 @@ public class AuthServiceImpl implements AuthService {
         user.setUserName(registerDto.getUserName());
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-
+        Set<String> strRoles = registerDto.getRole();
         Set<Role> roles = new HashSet<>();
-        Optional<Role> userRole = roleRepository.findByName("ROLE_USER");
-        if (userRole.isPresent()) {
-            Role role = userRole.get();
-            roles.add(role);
-            user.setRoles(roles);
 
-            userRepository.save(user);
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "admin":
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
 
-            return "User registered successfully!.";
-        }else {
-            throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "Role missing", LocalDateTime.now());
+                        break;
+                    case "mod":
+                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(modRole);
+
+                        break;
+                    default:
+                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(userRole);
+                }
+            });
+
         }
+
+        user.setRoles(roles);
+        userRepository.save(user);
+        return "User registered successfully!.";
     }
 }
