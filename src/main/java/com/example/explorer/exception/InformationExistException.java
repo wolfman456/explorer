@@ -25,24 +25,4 @@ public class InformationExistException extends RuntimeException {
         this.time = time;
     }
 
-    public InformationExistException(String message, Throwable cause, HttpStatus status, String message1, LocalDateTime time) {
-        super(message, cause);
-        this.status = status;
-        this.message = message1;
-        this.time = time;
-    }
-
-    public InformationExistException(Throwable cause, HttpStatus status, String message, LocalDateTime time) {
-        super(cause);
-        this.status = status;
-        this.message = message;
-        this.time = time;
-    }
-
-    public InformationExistException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, HttpStatus status, String message1, LocalDateTime time) {
-        super(message, cause, enableSuppression, writableStackTrace);
-        this.status = status;
-        this.message = message1;
-        this.time = time;
-    }
 }

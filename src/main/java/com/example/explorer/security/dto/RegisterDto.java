@@ -1,9 +1,12 @@
 package com.example.explorer.security.dto;
 
+import com.example.explorer.user.User_model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Setter
 @Getter
@@ -14,4 +17,5 @@ public class RegisterDto {
     private String userName;
     private String email;
     private String password;
+    private Set<String> role;
 }
