@@ -42,13 +42,20 @@ public class RoleRunner implements CommandLineRunner {
                 .intMod(1).conMod(1)
                 .charMod(1).build();
         raceRepo.save(race);
-//        Thread.sleep(5000);
-//        List<Race> raceList = raceRepo.findAll();
-//        ObjectMapper mapper = new ObjectMapper();
-//        ObjectWriter writer = mapper.writer().withRootName("role");
+        Race race2 = Race.builder().raceName("high elf")
+                .raceDescription("elfy")
+                .wisMod(10)
+                .strMod(1)
+                .intMod(1).conMod(1)
+                .charMod(1).build();
+        raceRepo.save(race2);
+        Thread.sleep(5000);
+        List<Race> raceList = raceRepo.findAll();
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter writer = mapper.writer().withRootName("races");
 //        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-//        String json = writer.writeValueAsString(raceList);
-//        System.out.println(json);
+        String json = writer.writeValueAsString(raceList);
+        System.out.println(json);
 
 
     }

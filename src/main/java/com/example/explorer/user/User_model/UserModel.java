@@ -1,10 +1,7 @@
 package com.example.explorer.user.User_model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -18,8 +15,11 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
-    String name;
+    @Column(nullable = false, length = 60)
+    String firstName;
+    @Column(unique = true, nullable = false, length = 60)
     String userName;
+    @Column(unique = true, nullable = false)
     String email;
     String Password;
 

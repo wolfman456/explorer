@@ -34,7 +34,6 @@ public class RaceController {
             if (raceDTO != null){
                 Race race = raceService.createNewRace(raceDTO);
                 ObjectMapper mapper = new ObjectMapper();
-                mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
                 String jsonString = mapper
                         .writerWithDefaultPrettyPrinter()
                         .writeValueAsString(race);
@@ -55,6 +54,7 @@ public class RaceController {
             String raceList = raceService.getAllRaces();
 
             return ResponseEntity.ok(raceList);
+
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseEntity.badRequest().body("failed to get races");
