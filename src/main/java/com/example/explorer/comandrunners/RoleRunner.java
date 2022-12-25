@@ -6,6 +6,7 @@ import com.example.explorer.user.User_model.ERole;
 import com.example.explorer.user.User_model.Role;
 import com.example.explorer.user.User_model.UserModel;
 import com.example.explorer.user.user_repo.RoleRepository;
+import com.example.explorer.user.user_repo.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -22,8 +23,6 @@ public class RoleRunner implements CommandLineRunner {
     @Autowired
     RoleRepository repository;
 
-    @Autowired
-    RaceRepo raceRepo;
     @Override
     public void run(String... args) throws Exception {
         Role role = new Role();
@@ -35,28 +34,6 @@ public class RoleRunner implements CommandLineRunner {
         Role role2 = new Role();
         role2.setName(ERole.ROLE_MODERATOR);
         repository.save(role2);
-        Race race = Race.builder().raceName("elf")
-                .raceDescription("elfy")
-                .wisMod(1)
-                .strMod(1)
-                .intMod(1).conMod(1)
-                .charMod(1).build();
-        raceRepo.save(race);
-        Race race2 = Race.builder().raceName("high elf")
-                .raceDescription("elfy")
-                .wisMod(10)
-                .strMod(1)
-                .intMod(1).conMod(1)
-                .charMod(1).build();
-        raceRepo.save(race2);
-        Thread.sleep(5000);
-        List<Race> raceList = raceRepo.findAll();
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer().withRootName("races");
-//        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-        String json = writer.writeValueAsString(raceList);
-        System.out.println(json);
-
 
     }
 }
