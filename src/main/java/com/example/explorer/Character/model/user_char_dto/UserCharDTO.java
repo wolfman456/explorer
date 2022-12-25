@@ -1,0 +1,14 @@
+//package com.example.explorer.Character.model.user_char_dto;
+//
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//import lombok.Setter;
+//
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
+//public class UserCharDTO {
+//
+//}

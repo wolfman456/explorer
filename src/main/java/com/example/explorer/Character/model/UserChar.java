@@ -1,8 +1,9 @@
 package com.example.explorer.Character.model;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.persistence.*;
 
-
+@JsonRootName("user_char")
 @Entity
 @Table(name = "userChar")
 public class UserChar extends BaseCharater{

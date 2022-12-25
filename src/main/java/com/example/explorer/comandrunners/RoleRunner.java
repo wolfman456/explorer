@@ -1,5 +1,7 @@
 package com.example.explorer.comandrunners;
 
+import com.example.explorer.Character.char_repo.RaceRepo;
+import com.example.explorer.Character.model.Race;
 import com.example.explorer.user.User_model.ERole;
 import com.example.explorer.user.User_model.Role;
 import com.example.explorer.user.User_model.UserModel;
@@ -13,6 +15,9 @@ public class RoleRunner implements CommandLineRunner {
 
     @Autowired
     RoleRepository repository;
+
+    @Autowired
+    RaceRepo raceRepo;
     @Override
     public void run(String... args) throws Exception {
         Role role = new Role();
@@ -21,9 +26,16 @@ public class RoleRunner implements CommandLineRunner {
         Role role1 = new Role();
         role1.setName(ERole.ROLE_USER);
         repository.save(role1);
-        UserModel userModel = new UserModel();
         Role role2 = new Role();
         role2.setName(ERole.ROLE_MODERATOR);
+        repository.save(role2);
+        Race race = Race.builder().raceName("elf")
+                .raceDescription("elfy")
+                .wisMod(1)
+                .strMod(1)
+                .intMod(1).conMod(1)
+                .charMod(1).build();
+        raceRepo.save(race);
 
     }
 }
