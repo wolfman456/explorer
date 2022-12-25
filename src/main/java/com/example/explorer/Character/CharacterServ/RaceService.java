@@ -10,4 +10,6 @@ import java.util.List;
 public interface RaceService {
     Race createNewRace(RaceDTO raceDTO) throws Exception;
     String getAllRaces() throws JsonProcessingException;
+    String updateRaceByName(String name, RaceDTO raceDTO) throws JsonProcessingException;
+    String getRaceByName(String name) throws JsonProcessingException;
 }

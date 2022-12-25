@@ -4,12 +4,15 @@ import com.example.explorer.Character.CharacterServ.RaceService;
 import com.example.explorer.Character.char_repo.RaceRepo;
 import com.example.explorer.Character.model.Race;
 import com.example.explorer.Character.model.user_char_dto.RaceDTO;
+import com.example.explorer.exception.InformationNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -37,5 +40,55 @@ public class RaceServiceImpl implements RaceService {
         String json = writer.writeValueAsString(raceList);
         System.out.println(json);
         return json;
+    }
+
+    @Override
+    public String updateRaceByName(String name, RaceDTO raceDTO) throws InformationNotFoundException, JsonProcessingException {
+        Race race = raceRepo.findByRaceName(name);
+        if (race == null){
+            throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "race with name " + name + " not found",
+                    LocalDateTime.now());
+        }
+        if (!raceDTO.getRaceName().isEmpty()){
+            race.setRaceName(raceDTO.getRaceName());
+        }
+        if (!raceDTO.getRaceDescription().isEmpty()){
+            race.setRaceDescription(raceDTO.getRaceDescription());
+        }
+        if (raceDTO.getConMod() != null){
+            race.setConMod(raceDTO.getConMod());
+        }
+        if (raceDTO.getStrMod() != null){
+            race.setStrMod(raceDTO.getStrMod());
+        }
+        if (raceDTO.getIntMod() != null){
+            race.setIntMod(raceDTO.getIntMod());
+        }
+        if (raceDTO.getCharMod() != null){
+            race.setCharMod(raceDTO.getCharMod());
+        }
+        if (raceDTO.getWisMod() != null){
+            race.setWisMod(raceDTO.getWisMod());
+        }
+        raceRepo.save(race);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(race);
+
+        return jsonString;
+    }
+
+    @Override
+    public String getRaceByName(String name) throws InformationNotFoundException, JsonProcessingException {
+        Race race = raceRepo.findByRaceName(name);
+        if (race == null){
+            throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "No race found with name " + name, LocalDateTime.now());
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(race);
+        return jsonString;
     }
 }
