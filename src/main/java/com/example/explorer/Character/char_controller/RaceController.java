@@ -41,12 +41,6 @@ public class RaceController {
                 return ResponseEntity.ok(jsonString);
             }
 
-        }catch (InformationNotFoundException notFoundException){
-            logger.debug(notFoundException.getMessage(), notFoundException.getCause());
-
-        }catch (InformationExistException existException){
-            logger.debug(existException.getMessage(), existException.getCause());
-
         }catch (Exception e){
             logger.debug(e.getMessage(), e.getCause());
 
@@ -58,13 +52,9 @@ public class RaceController {
     public ResponseEntity<?> getAllRaces(){
         logger.info("Calling getAllRaces methods =======>");
         try {
-            List<Race> raceList = raceService.getAllRaces();
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-            String jsonString = mapper
-                    .writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(raceList);
-            return ResponseEntity.ok(jsonString);
+            String raceList = raceService.getAllRaces();
+
+            return ResponseEntity.ok(raceList);
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseEntity.badRequest().body("failed to get races");

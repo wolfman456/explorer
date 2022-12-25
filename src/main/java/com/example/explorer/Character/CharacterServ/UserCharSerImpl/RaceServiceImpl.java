@@ -6,6 +6,10 @@ import com.example.explorer.Character.model.Race;
 import com.example.explorer.Character.model.user_char_dto.RaceDTO;
 import com.example.explorer.exception.InformationNotFoundException;
 import com.example.explorer.user.User_model.ERole;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpStatus;
@@ -21,7 +25,7 @@ public class RaceServiceImpl implements RaceService {
     @Autowired
     private RaceRepo raceRepo;
     @Override
-    public Race createNewRace(RaceDTO raceDTO) throws Exception{
+    public Race createNewRace(RaceDTO raceDTO){
 
             Race race = Race.builder().raceName(raceDTO.getRaceName()).raceDescription(raceDTO.getRaceDescription())
                     .charMod(raceDTO.getCharMod()).conMod(raceDTO.getConMod()).intMod(raceDTO.getIntMod())
@@ -32,7 +36,13 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public List<Race> getAllRaces() {
-        return raceRepo.findAll();
+    public String getAllRaces() throws JsonProcessingException {
+        List<Race> raceList = raceRepo.findAll();
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter writer = mapper.writer().withRootName("role");
+        String json = writer.writeValueAsString(raceList);
+        System.out.println(json);
+        return json;
     }
 }
