@@ -1,5 +1,8 @@
 package com.example.explorer.Character.model;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName(value = "base_charter")
 public class BaseCharater{
     private String race;
     private Integer hitPoints;

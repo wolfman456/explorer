@@ -6,6 +6,7 @@ import com.example.explorer.Character.model.user_char_dto.RaceDTO;
 import com.example.explorer.exception.InformationNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class RaceController {
             if (raceDTO != null){
                 Race race = raceService.createNewRace(raceDTO);
                 ObjectMapper mapper = new ObjectMapper();
+                mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
                 String jsonString = mapper
                         .writerWithDefaultPrettyPrinter()
                         .writeValueAsString(race);

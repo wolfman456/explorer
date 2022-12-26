@@ -8,8 +8,11 @@ import com.example.explorer.exception.InformationNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -44,6 +47,12 @@ public class RaceServiceImpl implements RaceService {
 
     @Override
     public String updateRaceByName(String name, RaceDTO raceDTO) throws InformationNotFoundException, JsonProcessingException {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        System.out.println(currentPrincipalName);
+
+
         Race race = raceRepo.findByRaceName(name);
         if (race == null){
             throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "race with name " + name + " not found",
@@ -72,6 +81,7 @@ public class RaceServiceImpl implements RaceService {
         }
         raceRepo.save(race);
         ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         String jsonString = mapper
                 .writerWithDefaultPrettyPrinter()
                 .writeValueAsString(race);
@@ -86,6 +96,7 @@ public class RaceServiceImpl implements RaceService {
             throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "No race found with name " + name, LocalDateTime.now());
         }
         ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         String jsonString = mapper
                 .writerWithDefaultPrettyPrinter()
                 .writeValueAsString(race);
