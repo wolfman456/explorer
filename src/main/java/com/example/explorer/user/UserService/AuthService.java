@@ -1,8 +1,8 @@
 package com.example.explorer.user.UserService;
 
 
-import com.example.explorer.security.dto.LoginDto;
-import com.example.explorer.security.dto.RegisterDto;
+import com.example.explorer.user.User_model.dto.LoginDto;
+import com.example.explorer.user.User_model.dto.RegisterDto;
 
 public interface AuthService {
     String login(LoginDto loginDto);

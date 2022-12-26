@@ -1,4 +1,4 @@
-package com.example.explorer.security.dto;
+package com.example.explorer.user.User_model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

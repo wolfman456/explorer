@@ -14,14 +14,15 @@ import java.util.Set;
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
+    private Long Id;
     @Column(nullable = false, length = 60)
-    String name;
+    private String name;
     @Column(unique = true, nullable = false, length = 60)
-    String userName;
+    private String userName;
     @Column(unique = true, nullable = false)
-    String email;
-    String Password;
+    private String email;
+    private String Password;
+    private Boolean isActive;
 
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
