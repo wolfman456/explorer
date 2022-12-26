@@ -4,7 +4,10 @@ import com.example.explorer.Character.model.Race;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RaceRepo extends JpaRepository<Race, Long> {
     Race findByRaceName (String name);
+
 }

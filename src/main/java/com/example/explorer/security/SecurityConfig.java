@@ -48,7 +48,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         //authorize.anyRequest().authenticated()
                         authorize.requestMatchers(HttpMethod.GET, "/api/auth/**", "/welcome/").permitAll()
-                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers( "/api/v1/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/api/v1/**").permitAll()
                                 .anyRequest().authenticated()
 
                 ).exceptionHandling(exception -> exception
