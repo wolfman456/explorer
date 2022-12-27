@@ -1,4 +1,4 @@
-package com.example.explorer.Character.model.user_char_dto;
+package com.example.explorer.character.model.user_char_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
