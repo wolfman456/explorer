@@ -2,8 +2,8 @@ package com.example.explorer.user.UserController;
 
 import com.example.explorer.user.UserService.AuthService;
 import com.example.explorer.security.JWTAuthResponse;
-import com.example.explorer.security.dto.LoginDto;
-import com.example.explorer.security.dto.RegisterDto;
+import com.example.explorer.user.User_model.dto.LoginDto;
+import com.example.explorer.user.User_model.dto.RegisterDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

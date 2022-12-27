@@ -5,6 +5,7 @@ import com.example.explorer.Character.char_repo.RaceRepo;
 import com.example.explorer.Character.model.Race;
 import com.example.explorer.Character.model.user_char_dto.RaceDTO;
 import com.example.explorer.exception.InformationNotFoundException;
+import com.example.explorer.user.User_model.UserModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -37,7 +38,6 @@ public class RaceServiceImpl implements RaceService {
     @Override
     public String getAllRaces() throws JsonProcessingException {
         List<Race> raceList = raceRepo.findAll();
-
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter writer = mapper.writer().withRootName("Races");
         String json = writer.writeValueAsString(raceList);
@@ -47,11 +47,6 @@ public class RaceServiceImpl implements RaceService {
 
     @Override
     public String updateRaceByName(String name, RaceDTO raceDTO) throws InformationNotFoundException, JsonProcessingException {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        System.out.println(currentPrincipalName);
-
 
         Race race = raceRepo.findByRaceName(name);
         if (race == null){

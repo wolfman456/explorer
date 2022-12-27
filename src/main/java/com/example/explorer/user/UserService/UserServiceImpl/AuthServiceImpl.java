@@ -1,6 +1,5 @@
 package com.example.explorer.user.UserService.UserServiceImpl;
 
-import com.example.explorer.exception.InformationNotFoundException;
 import com.example.explorer.user.User_model.ERole;
 import com.example.explorer.user.User_model.Role;
 import com.example.explorer.user.User_model.UserModel;
@@ -9,8 +8,8 @@ import com.example.explorer.user.user_repo.RoleRepository;
 import com.example.explorer.user.user_repo.UserRepository;
 import com.example.explorer.exception.InformationExistException;
 import com.example.explorer.security.JwtTokenProvider;
-import com.example.explorer.security.dto.LoginDto;
-import com.example.explorer.security.dto.RegisterDto;
+import com.example.explorer.user.User_model.dto.LoginDto;
+import com.example.explorer.user.User_model.dto.RegisterDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -52,9 +50,14 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUserNameOrEmail(), loginDto.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return jwtTokenProvider.generateToken(authentication);
+        UserModel userModel = userRepository.findByEmail(authentication.getName().toString()).get();
+                if (userModel.getIsActive() == true) {
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    return jwtTokenProvider.generateToken(authentication);
+                }else {
+                    throw new RuntimeException("Login Failure");
+                }
     }
 
     @Override
@@ -75,6 +78,7 @@ public class AuthServiceImpl implements AuthService {
         user.setUserName(registerDto.getUserName());
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        user.setIsActive(true);
         Set<String> strRoles = registerDto.getRole();
         Set<Role> roles = new HashSet<>();
 
