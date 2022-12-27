@@ -1,6 +1,9 @@
 # explorer
 
-RPG API
+A RPG API
+
+# Project Summary :
+
 
 # User Stories :
 * ### User :
@@ -16,3 +19,43 @@ RPG API
 * ### Moderator :
   1. As a Moderator I want to be able to see a list of users.
   2. As a Moderator I want to be able to suspend a User.
+
+## ERD User/character:
+![img.png](ReadMeAssests/img.png)
+## Dependencies :
+
+## Challenges Faced :
+
+
+## EndPoints :
+
+| http:// Method| Endpoint| Description| Public/User/Admin
+|--|--|--|--|
+||**User login and registration**
+|Get | api/auth/login | Login in to Account | Public
+|Get | api/auth/login | Register a new Account | Public
+
+
+
+## Resources :
+
+|           Resources                           | Use                    |
+|-----------------------------------------------|------------------------|
+
+
+
+
+## Technologies Leveraged :
+
+| Tech. Name             | Utilization in Project                   |
+|------------------------|------------------------------------------|
+| Spring Security crypto | Hashing function stores passwords in DB. |
+| Java 19                | Code language.                           |
+| Maven                  | Java dependency management.              |
+| H2                     | SQL DataBase.                            |
+| Spring Boot            | API framework.                           |
+| Spring Security 6.0    | Security authentication                  |
+| JWT                    | JSON signed with HS256 algorithm.        |
+| JUnit                  | Unit testing                             |
+| Mockito                | Unit testing Mocking                     |
+
