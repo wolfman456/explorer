@@ -1,4 +1,4 @@
-package com.example.explorer.Character.model;
+package com.example.explorer.character.model;
 
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -22,15 +22,15 @@ public class Race {
     private String raceName;
     @Column(nullable = false)
     private String raceDescription;
-    @Column(nullable = false, length = 2)
+    @Column(nullable = false)
     private Integer strMod;
-    @Column(nullable = false, length = 2)
+    @Column(nullable = false)
     private Integer wisMod;
-    @Column(nullable = false, length = 2)
+    @Column(nullable = false)
     private Integer intMod;
-    @Column(nullable = false, length = 2)
+    @Column(nullable = false)
     private Integer charMod;
-    @Column(nullable = false, length = 2)
+    @Column(nullable = false)
     private Integer conMod;
 
 }

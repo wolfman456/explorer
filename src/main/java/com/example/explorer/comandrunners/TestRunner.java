@@ -1,9 +1,9 @@
 package com.example.explorer.comandrunners;
 
-import com.example.explorer.Character.char_repo.PlayerCharterRepo;
-import com.example.explorer.Character.char_repo.RaceRepo;
-import com.example.explorer.Character.model.Race;
-import com.example.explorer.Character.model.UserChar;
+import com.example.explorer.character.char_repo.PlayerCharterRepo;
+import com.example.explorer.character.char_repo.RaceRepo;
+import com.example.explorer.character.model.Race;
+import com.example.explorer.character.model.UserChar;
 import com.example.explorer.user.user_repo.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
