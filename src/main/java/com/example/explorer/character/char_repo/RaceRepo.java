@@ -1,10 +1,8 @@
-package com.example.explorer.Character.char_repo;
+package com.example.explorer.character.char_repo;
 
-import com.example.explorer.Character.model.Race;
+import com.example.explorer.character.model.Race;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface RaceRepo extends JpaRepository<Race, Long> {

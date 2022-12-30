@@ -1,8 +1,9 @@
-package com.example.explorer.Character.char_controller;
+package com.example.explorer.character.char_controller;
 
-import com.example.explorer.Character.CharacterServ.RaceService;
-import com.example.explorer.Character.model.Race;
-import com.example.explorer.Character.model.user_char_dto.RaceDTO;
+import com.example.explorer.character.character_serv.RaceService;
+import com.example.explorer.character.model.Race;
+import com.example.explorer.character.model.user_char_dto.RaceDTO;
+import com.example.explorer.exception.InformationExistException;
 import com.example.explorer.exception.InformationNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,11 +40,13 @@ public class RaceController {
                 return ResponseEntity.ok(jsonString);
             }
 
-        }catch (Exception e){
+        } catch (InformationExistException info){
+            logger.debug("createNewRace failed with error message : " + info.getMessage());
+        } catch (Exception e){
             logger.debug(e.getMessage(), e.getCause());
 
         }
-            return ResponseEntity.badRequest().body("No information found");
+        return ResponseEntity.badRequest().body("No information found");
     }
     @GetMapping(value = "getall")
     @PreAuthorize("hasRole('ADMIN')")

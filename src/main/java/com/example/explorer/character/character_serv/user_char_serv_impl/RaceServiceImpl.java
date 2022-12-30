@@ -1,19 +1,17 @@
-package com.example.explorer.Character.CharacterServ.UserCharSerImpl;
+package com.example.explorer.character.character_serv.user_char_serv_impl;
 
-import com.example.explorer.Character.CharacterServ.RaceService;
-import com.example.explorer.Character.char_repo.RaceRepo;
-import com.example.explorer.Character.model.Race;
-import com.example.explorer.Character.model.user_char_dto.RaceDTO;
+import com.example.explorer.character.character_serv.RaceService;
+import com.example.explorer.character.char_repo.RaceRepo;
+import com.example.explorer.character.model.Race;
+import com.example.explorer.character.model.user_char_dto.RaceDTO;
+import com.example.explorer.exception.InformationExistException;
 import com.example.explorer.exception.InformationNotFoundException;
-import com.example.explorer.user.User_model.UserModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,14 +23,17 @@ public class RaceServiceImpl implements RaceService {
     @Autowired
     private RaceRepo raceRepo;
     @Override
-    public Race createNewRace(RaceDTO raceDTO) throws Exception{
-
-            Race race = Race.builder().raceName(raceDTO.getRaceName()).raceDescription(raceDTO.getRaceDescription())
-                    .charMod(raceDTO.getCharMod()).conMod(raceDTO.getConMod()).intMod(raceDTO.getIntMod())
-                    .strMod(raceDTO.getStrMod())
-                    .wisMod(raceDTO.getWisMod())
-                    .build();
-            return raceRepo.save(race);
+    public Race createNewRace(RaceDTO raceDTO) throws InformationExistException{
+            if (raceRepo.findByRaceName(raceDTO.getRaceName()) == null) {
+                Race race = Race.builder().raceName(raceDTO.getRaceName()).raceDescription(raceDTO.getRaceDescription())
+                        .charMod(raceDTO.getCharMod()).conMod(raceDTO.getConMod()).intMod(raceDTO.getIntMod())
+                        .strMod(raceDTO.getStrMod())
+                        .wisMod(raceDTO.getWisMod())
+                        .build();
+                return raceRepo.save(race);
+            }else {
+                throw new InformationExistException(HttpStatus.CONFLICT, "information already exits", LocalDateTime.now());
+            }
     }
 
     @Override
