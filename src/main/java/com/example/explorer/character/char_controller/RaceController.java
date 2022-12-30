@@ -65,7 +65,7 @@ public class RaceController {
 
     @PutMapping(value = "/update_race_by_name/{name}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> getRaceByName(@PathVariable(value = "name") String name,
+    public ResponseEntity<?> updateRaceByName(@PathVariable(value = "name") String name,
                                            @RequestBody RaceDTO raceDTO){
         if (!name.isEmpty() && raceDTO != null){
             try {
