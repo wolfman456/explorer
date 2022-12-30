@@ -1,10 +1,8 @@
-package com.example.explorer.Character.CharacterServ;
+package com.example.explorer.character.character_serv;
 
-import com.example.explorer.Character.model.Race;
-import com.example.explorer.Character.model.user_char_dto.RaceDTO;
+import com.example.explorer.character.model.Race;
+import com.example.explorer.character.model.user_char_dto.RaceDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
-import java.util.List;
 
 
 public interface RaceService {

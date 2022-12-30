@@ -1,4 +1,4 @@
-package com.example.explorer.Character.model;
+package com.example.explorer.character.model;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
