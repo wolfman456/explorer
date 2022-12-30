@@ -1,15 +1,14 @@
 package com.example.explorer.character.model.user_char_dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.explorer.character.model.Race;
+import lombok.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RaceDTO {
+@Builder
+public class RaceDTO{
     private String raceName;
     private String raceDescription;
     private Integer strMod;

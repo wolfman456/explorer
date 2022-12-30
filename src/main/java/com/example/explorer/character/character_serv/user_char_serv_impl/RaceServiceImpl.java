@@ -4,6 +4,7 @@ import com.example.explorer.character.character_serv.RaceService;
 import com.example.explorer.character.char_repo.RaceRepo;
 import com.example.explorer.character.model.Race;
 import com.example.explorer.character.model.user_char_dto.RaceDTO;
+import com.example.explorer.exception.InformationExistException;
 import com.example.explorer.exception.InformationNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,14 +23,17 @@ public class RaceServiceImpl implements RaceService {
     @Autowired
     private RaceRepo raceRepo;
     @Override
-    public Race createNewRace(RaceDTO raceDTO) throws Exception{
-
-            Race race = Race.builder().raceName(raceDTO.getRaceName()).raceDescription(raceDTO.getRaceDescription())
-                    .charMod(raceDTO.getCharMod()).conMod(raceDTO.getConMod()).intMod(raceDTO.getIntMod())
-                    .strMod(raceDTO.getStrMod())
-                    .wisMod(raceDTO.getWisMod())
-                    .build();
-            return raceRepo.save(race);
+    public Race createNewRace(RaceDTO raceDTO) throws InformationExistException{
+            if (raceRepo.findByRaceName(raceDTO.getRaceName()) == null) {
+                Race race = Race.builder().raceName(raceDTO.getRaceName()).raceDescription(raceDTO.getRaceDescription())
+                        .charMod(raceDTO.getCharMod()).conMod(raceDTO.getConMod()).intMod(raceDTO.getIntMod())
+                        .strMod(raceDTO.getStrMod())
+                        .wisMod(raceDTO.getWisMod())
+                        .build();
+                return raceRepo.save(race);
+            }else {
+                throw new InformationExistException(HttpStatus.CONFLICT, "information already exits", LocalDateTime.now());
+            }
     }
 
     @Override
