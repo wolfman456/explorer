@@ -100,5 +100,21 @@ public class RaceController {
         return ResponseEntity.badRequest().body("no name found in request");
     }
 
+    @DeleteMapping(value = "delete_race_by_name/{name}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteRaceByName(@PathVariable(value = "name") String name){
+        try {
+            if (name != null){
+                return ResponseEntity.ok(raceService.deleteRace(name));
+            }
+        }catch (InformationNotFoundException notFoundException){
+            logger.debug("deleteRace failed with message : " + notFoundException.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }catch (Exception e){
+            logger.debug("deleteRace failed with message : " + e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
 
 }

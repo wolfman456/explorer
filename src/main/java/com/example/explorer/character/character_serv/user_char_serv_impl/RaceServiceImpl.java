@@ -98,4 +98,17 @@ public class RaceServiceImpl implements RaceService {
                 .writeValueAsString(race);
         return jsonString;
     }
+
+    @Override
+    public String deleteRace(String name) throws InformationNotFoundException{
+        Race race = raceRepo.findByRaceName(name);
+        if (race != null){
+            raceRepo.delete(race);
+            return "race " +name+ " successfully deleted";
+        }else{
+            throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "no race with name " + name + " found", LocalDateTime.now());
+        }
+    }
+
+
 }
