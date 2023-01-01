@@ -7,6 +7,7 @@ import com.example.explorer.exception.InformationExistException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.as;
@@ -116,6 +117,26 @@ public class RaceControllerTest {
         System.out.println(response.getStatusCode());
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Test
+    public void whenRaceControllerUpdateRace_returnUpdatedRace() throws JsonProcessingException {
+        race.setRaceName("bob");
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+        String json = mapper
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(race);
+
+        System.out.println(json);
+
+        when(service.updateRaceByName(anyString(), any(RaceDTO.class))).thenReturn(json);
+
+        ResponseEntity<?> response = controller.updateRaceByName("elf", raceDTO);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotEqualTo(EXPECTED);
     }
 
 }
