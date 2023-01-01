@@ -33,14 +33,10 @@ A RPG API
 |--|--|--|--|
 ||**User login and registration**
 |Get | api/auth/login | Login in to Account | Public
-|Get | api/auth/login | Register a new Account | Public
+|Get | api/auth/register | Register a new Account | Public
+||**Admin Race Controller**
+|GET | api/v1/admin/getall | Get All races | Admin
 
-
-
-## Resources :
-
-|           Resources                           | Use                    |
-|-----------------------------------------------|------------------------|
 
 
 
@@ -57,5 +53,5 @@ A RPG API
 | Spring Security 6.0    | Security authentication                  |
 | JWT                    | JSON signed with HS256 algorithm.        |
 | JUnit                  | Unit testing                             |
-| Mockito                | Unit testing Mocking                     |
+| Mockito                | Mocking agent                            |
 
