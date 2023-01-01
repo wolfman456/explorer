@@ -110,10 +110,19 @@ public class RaceServiceTest {
         String updatedRace = raceService.updateRaceByName(race.getRaceName(), raceDTO);
 
         assertThat(updatedRace).isNotNull();
-        assertThat(updatedRace).isEqualTo("{\n  \"race\" : {\n    \"id\" : null,\n   " +
-                " \"raceName\" : \"elf dude\",\n    \"raceDescription\" : \"test\",\n   " +
-                " \"strMod\" : 1,\n    \"wisMod\" : 1,\n    \"intMod\" : 1,\n  " +
-                "  \"charMod\" : 1,\n    \"conMod\" : 1\n  }\n}");
+        assertThat(updatedRace).isEqualTo("""
+                {
+                  "race" : {
+                    "id" : null,
+                    "raceName" : "elf dude",
+                    "raceDescription" : "test",
+                    "strMod" : 1,
+                    "wisMod" : 1,
+                    "intMod" : 1,
+                    "charMod" : 1,
+                    "conMod" : 1
+                  }
+                }""");
     }
 
     @Test

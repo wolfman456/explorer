@@ -75,6 +75,9 @@ public class RaceController {
             }catch (InformationNotFoundException | JsonProcessingException notFoundException){
                 logger.debug("Exception encountered well performing updateRaceByName " +
                         "with message " + notFoundException.getMessage());
+                return ResponseEntity.badRequest().build();
+            }catch (Exception e){
+                return ResponseEntity.internalServerError().build();
             }
 
         }
@@ -94,7 +97,7 @@ public class RaceController {
                 return ResponseEntity.noContent().build();
             } catch (JsonProcessingException e) {
                 logger.debug("exception occurred during serialization with message " +e.getMessage());
-                throw new RuntimeException(e);
+                return ResponseEntity.internalServerError().build();
             }
 
         }

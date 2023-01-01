@@ -78,11 +78,10 @@ public class RaceServiceImpl implements RaceService {
         raceRepo.save(race);
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-        String jsonString = mapper
+
+        return mapper
                 .writerWithDefaultPrettyPrinter()
                 .writeValueAsString(race);
-
-        return jsonString;
     }
 
     @Override
@@ -93,10 +92,9 @@ public class RaceServiceImpl implements RaceService {
         }
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-        String jsonString = mapper
+        return mapper
                 .writerWithDefaultPrettyPrinter()
                 .writeValueAsString(race);
-        return jsonString;
     }
 
     @Override
