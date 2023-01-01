@@ -23,7 +23,7 @@ public class RaceController {
     @Autowired
     private RaceService raceService;
 
-    private Logger logger = LoggerFactory.getLogger(RaceController.class);
+    private final Logger logger = LoggerFactory.getLogger(RaceController.class);
 
     @PostMapping(value = "/create_new_race")
     @PreAuthorize("hasRole('ADMIN')")
@@ -42,9 +42,10 @@ public class RaceController {
 
         } catch (InformationExistException info){
             logger.debug("createNewRace failed with error message : " + info.getMessage());
+            return ResponseEntity.badRequest().build();
         } catch (Exception e){
             logger.debug(e.getMessage(), e.getCause());
-
+            return ResponseEntity.internalServerError().build();
         }
         return ResponseEntity.badRequest().body("No information found");
     }
