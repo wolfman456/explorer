@@ -10,4 +10,6 @@ public interface RaceService {
     String getAllRaces() throws JsonProcessingException;
     String updateRaceByName(String name, RaceDTO raceDTO) throws JsonProcessingException;
     String getRaceByName(String name) throws JsonProcessingException;
+
+    String deleteRace(String name);
 }

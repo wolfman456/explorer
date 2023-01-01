@@ -23,7 +23,7 @@ public class RaceController {
     @Autowired
     private RaceService raceService;
 
-    private Logger logger = LoggerFactory.getLogger(RaceController.class);
+    private final Logger logger = LoggerFactory.getLogger(RaceController.class);
 
     @PostMapping(value = "/create_new_race")
     @PreAuthorize("hasRole('ADMIN')")
@@ -42,9 +42,10 @@ public class RaceController {
 
         } catch (InformationExistException info){
             logger.debug("createNewRace failed with error message : " + info.getMessage());
+            return ResponseEntity.badRequest().build();
         } catch (Exception e){
             logger.debug(e.getMessage(), e.getCause());
-
+            return ResponseEntity.internalServerError().build();
         }
         return ResponseEntity.badRequest().body("No information found");
     }
@@ -74,6 +75,9 @@ public class RaceController {
             }catch (InformationNotFoundException | JsonProcessingException notFoundException){
                 logger.debug("Exception encountered well performing updateRaceByName " +
                         "with message " + notFoundException.getMessage());
+                return ResponseEntity.badRequest().build();
+            }catch (Exception e){
+                return ResponseEntity.internalServerError().build();
             }
 
         }
@@ -93,12 +97,28 @@ public class RaceController {
                 return ResponseEntity.noContent().build();
             } catch (JsonProcessingException e) {
                 logger.debug("exception occurred during serialization with message " +e.getMessage());
-                throw new RuntimeException(e);
+                return ResponseEntity.internalServerError().build();
             }
 
         }
         return ResponseEntity.badRequest().body("no name found in request");
     }
 
+    @DeleteMapping(value = "delete_race_by_name/{name}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteRaceByName(@PathVariable(value = "name") String name){
+        try {
+            if (name != null){
+                return ResponseEntity.ok(raceService.deleteRace(name));
+            }
+        }catch (InformationNotFoundException notFoundException){
+            logger.debug("deleteRace failed with message : " + notFoundException.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }catch (Exception e){
+            logger.debug("deleteRace failed with message : " + e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
 
 }
