@@ -2,8 +2,8 @@ package com.example.explorer.comandrunners;
 
 import com.example.explorer.character.char_repo.PlayerCharterRepo;
 import com.example.explorer.character.char_repo.RaceRepo;
+import com.example.explorer.character.model.PlayerCharacter;
 import com.example.explorer.character.model.Race;
-import com.example.explorer.character.model.UserChar;
 import com.example.explorer.user.user_repo.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -22,8 +22,6 @@ public class TestRunner implements CommandLineRunner {
 
     @Autowired
     PlayerCharterRepo charterRepo;
-    @Autowired
-    private UserRepository userRepository;
 
 
     @Override
@@ -51,9 +49,9 @@ public class TestRunner implements CommandLineRunner {
         ObjectWriter writer = mapper.writer().withRootName("races");
         String json = writer.writeValueAsString(raceList);
         System.out.println(json);
-        UserChar userChar = new UserChar();
+        PlayerCharacter userChar = new PlayerCharacter();
         userChar.setCharName("lone");
-        userChar.setUserId(1l);
+        userChar.setUserName("bob");
         userChar.setCon(10);
         userChar.setWis(10);
         userChar.setStr(10);

@@ -1,6 +1,7 @@
 package com.example.explorer.character.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,6 +17,7 @@ import lombok.*;
 public class Race {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     @NonNull
     @Column(unique = true, length = 80, updatable = false)
