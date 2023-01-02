@@ -1,12 +1,8 @@
 package com.example.explorer.character.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.jackson.JsonComponent;
 
 @Getter
 @Setter
@@ -35,12 +31,16 @@ public class PlayerCharacter{
     private Integer con;
     @Column Integer intelligent;
     @Column
-    private String race;
-    @Column
     private Integer hitPoints;
     @Column
     private Integer baseAct;
     @Column
     private Integer baseSpellPoints;
+    @ManyToOne
+    @JoinColumn(name = "race_id")
+    private Race race;
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    private PlayerClasses playerClasses;
 
 }

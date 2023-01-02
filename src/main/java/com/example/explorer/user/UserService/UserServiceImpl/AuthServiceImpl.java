@@ -52,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
 
 
         UserModel userModel = userRepository.findByEmail(authentication.getName().toString()).get();
-                if (userModel.getIsActive() == true) {
+                if (userModel.getIsActive()) {
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                     return jwtTokenProvider.generateToken(authentication);
                 }else {

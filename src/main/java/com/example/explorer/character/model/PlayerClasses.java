@@ -1,4 +1,4 @@
-package com.example.explorer.character.model.user_char_dto;
+package com.example.explorer.character.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -20,9 +20,25 @@ public class PlayerClasses {
     @Column
     private Long playerCLassId;
     @Column
-    String className;
+    private String className;
     @Column
-    String description;
+    private String description;
     @Column
-    Boolean spells;
+    private Boolean spells;
+    @Column
+    @JsonIgnore
+    private String priority1;
+    @Column
+    @JsonIgnore
+    private String priority2;
+    @Column
+    @JsonIgnore
+    private String priority3;
+    @Column
+    @JsonIgnore
+    private String priority4;
+    @Column
+    @JsonIgnore
+    private String priority5;
+
 }

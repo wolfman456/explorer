@@ -1,6 +1,5 @@
 package com.example.explorer.character.model;
 
-import com.example.explorer.character.model.user_char_dto.PlayerClasses;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

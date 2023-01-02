@@ -113,7 +113,6 @@ public class RaceServiceTest {
         assertThat(updatedRace).isEqualTo("""
                 {
                   "race" : {
-                    "id" : null,
                     "raceName" : "elf dude",
                     "raceDescription" : "test",
                     "strMod" : 1,
