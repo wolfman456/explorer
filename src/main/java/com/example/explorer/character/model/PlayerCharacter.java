@@ -17,9 +17,7 @@ public class PlayerCharacter{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long charId;
-    @Column(nullable = false)
-    private String userName;
-    @Column
+    @Column(nullable = false, updatable = false)
     private String charName;
     @Column
     private Integer wis;
@@ -36,6 +34,7 @@ public class PlayerCharacter{
     private Integer baseAct;
     @Column
     private Integer baseSpellPoints;
+
     @ManyToOne
     @JoinColumn(name = "race_id")
     private Race race;

@@ -38,6 +38,6 @@ public class UserModel {
     @OneToMany
     @JoinTable(name = "user_character",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "character_id", referencedColumnName = "charName"))
+    inverseJoinColumns = @JoinColumn(name = "character_id", referencedColumnName = "charId"))
     List<PlayerCharacter> playerCharacters;
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlayerClassRepo extends JpaRepository<PlayerClasses, Long> {
-
+    PlayerClasses findPlayerClassesByClassName(String name);
 }
