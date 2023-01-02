@@ -12,9 +12,9 @@ A RPG API
   3. As a user I want to be able to pick a class and race for my avatars.
 
 * ### Admin :
-  1. As a admin I want to be able to create new races.
-  2. As a admin I want to be able to create new player classes.
-  3. As a admin I want to be able to Create new Items.
+  1. As an admin I want to be able to create new races.
+  2. As an admin I want to be able to create new player classes.
+  3. As an admin I want to be able to Create new Items.
 
 * ### Moderator :
   1. As a Moderator I want to be able to see a list of users.

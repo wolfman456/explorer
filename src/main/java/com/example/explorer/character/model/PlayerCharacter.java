@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 
 @JsonRootName(value = "player_charter")
 @Entity
-@Table(name = "userChar")
-public class UserChar extends BaseCharater{
+@Table(name = "player_charter")
+public class PlayerCharacter extends BaseCharater{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long charId;
     @Column(nullable = false)
-    private Long userId;
+    private String userName;
     @Column
     private String charName;
     @Column
@@ -23,23 +23,21 @@ public class UserChar extends BaseCharater{
     @Column
     private Integer con;
 
-    public UserChar(String race, Integer hitPoints, Integer baseAct, Integer baseSpellPoints,
-                    Long charId, Long userId, String charName, Integer wis, Integer str, Integer charisma, Integer con) {
+    @Column Integer intelligent;
+
+    public PlayerCharacter(String race, Integer intelligent, Integer hitPoints, Integer baseAct, Integer baseSpellPoints, Long charId, String userName, String charName, Integer wis, Integer str, Integer charisma, Integer con) {
         super(race, hitPoints, baseAct, baseSpellPoints);
         this.charId = charId;
-        this.userId = userId;
+        this.userName = userName;
         this.charName = charName;
         this.wis = wis;
         this.str = str;
         this.charisma = charisma;
         this.con = con;
+        this.intelligent = intelligent;
     }
 
-    public UserChar() {
-    }
-
-    public UserChar(String race, Integer hitPoints, Integer baseAct, Integer baseSpellPoints) {
-        super(race, hitPoints, baseAct, baseSpellPoints);
+    public PlayerCharacter() {
     }
 
     public Long getCharId() {
@@ -50,12 +48,12 @@ public class UserChar extends BaseCharater{
         this.charId = charId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getCharName() {
@@ -96,5 +94,13 @@ public class UserChar extends BaseCharater{
 
     public void setCon(Integer con) {
         this.con = con;
+    }
+
+    public Integer getIntelligent() {
+        return intelligent;
+    }
+
+    public void setIntelligent(Integer intelligent) {
+        this.intelligent = intelligent;
     }
 }
