@@ -22,23 +22,14 @@ A RPG API
 
 ## ERD User/character:
 ![img.png](ReadMeAssests/img.png)
-## Dependencies :
-
-## Challenges Faced :
 
 
 ## EndPoints :
 
-| http:// Method| Endpoint| Description| Public/User/Admin
-|--|--|--|--|
-||**User login and registration**
-|Get | api/auth/login | Login in to Account | Public
-|Get | api/auth/register | Register a new Account | Public
-||**Admin Race Controller**
-|GET | api/v1/admin/getall | Get All races | Admin
-
-
-
+| HTTP method | End Point         | Description            | Public/User/Admin/moderator |
+|-------------|-------------------|------------------------|-----------------------------|
+| Get         | api/auth/login    | Login in to Account    | Public                      |
+| Get         | api/auth/register | Register a new Account | Public                      |
 
 
 ## Technologies Leveraged :
