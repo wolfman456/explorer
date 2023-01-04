@@ -64,12 +64,36 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public String updateCLass(String name, ClassDTO classDTO) {
-        return null;
+    public String updateCLass(String name, ClassDTO classDTO) throws InformationNotFoundException, JsonProcessingException {
+        PlayerClasses playerClasses = playerClassRepo.findPlayerClassesByClassName(name);
+        if (playerClasses == null){
+            throw new InformationNotFoundException(HttpStatus.BAD_REQUEST, "no class with name " + name + " found", LocalDateTime.now());
+        }
+        if (classDTO.getClassName() != null){
+            playerClasses.setSpells(classDTO.getSpells());
+        }
+        if (classDTO.getSpells() != null){
+            playerClasses.setClassName(classDTO.getClassName());
+        }if (classDTO.getDescription() != null){
+            playerClasses.setDescription(classDTO.getDescription());
+        }
+        playerClassRepo.save(playerClasses);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+        return mapper
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(playerClasses);
     }
 
     @Override
-    public String deleteClass(String name) {
-        return null;
+    public String deleteClass(String name) throws InformationNotFoundException{
+        PlayerClasses playerClasses = playerClassRepo.findPlayerClassesByClassName(name);
+
+        if (playerClasses == null){
+            throw new InformationNotFoundException(HttpStatus.BAD_REQUEST, "no class with name " + name + " found", LocalDateTime.now());
+        }
+        playerClassRepo.delete(playerClasses);
+        return "class " + name + " deleted";
     }
 }

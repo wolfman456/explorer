@@ -10,6 +10,6 @@ public interface ClassService {
     String createClass(ClassDTO classDTO) throws JsonProcessingException;
     String getClassByName(String name) throws JsonProcessingException;
     List<PlayerClasses> getAllClasses();
-    String updateCLass(String name, ClassDTO classDTO);
+    String updateCLass(String name, ClassDTO classDTO) throws JsonProcessingException;
     String deleteClass(String name);
 }
