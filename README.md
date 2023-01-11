@@ -12,9 +12,9 @@ A RPG API
   3. As a user I want to be able to pick a class and race for my avatars.
 
 * ### Admin :
-  1. As a admin I want to be able to create new races.
-  2. As a admin I want to be able to create new player classes.
-  3. As a admin I want to be able to Create new Items.
+  1. As an admin I want to be able to create new races.
+  2. As an admin I want to be able to create new player classes.
+  3. As an admin I want to be able to Create new Items.
 
 * ### Moderator :
   1. As a Moderator I want to be able to see a list of users.
@@ -22,23 +22,14 @@ A RPG API
 
 ## ERD User/character:
 ![img.png](ReadMeAssests/img.png)
-## Dependencies :
-
-## Challenges Faced :
 
 
 ## EndPoints :
 
-| http:// Method| Endpoint| Description| Public/User/Admin
-|--|--|--|--|
-||**User login and registration**
-|Get | api/auth/login | Login in to Account | Public
-|Get | api/auth/register | Register a new Account | Public
-||**Admin Race Controller**
-|GET | api/v1/admin/getall | Get All races | Admin
-
-
-
+| HTTP method | End Point         | Description            | Public/User/Admin/moderator |
+|-------------|-------------------|------------------------|-----------------------------|
+| Get         | api/auth/login    | Login in to Account    | Public                      |
+| Get         | api/auth/register | Register a new Account | Public                      |
 
 
 ## Technologies Leveraged :
