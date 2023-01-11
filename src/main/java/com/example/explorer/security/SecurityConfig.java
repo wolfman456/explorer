@@ -46,7 +46,7 @@ public class SecurityConfig {
 
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        //authorize.anyRequest().authenticated()
+
                         authorize.requestMatchers( "/api/auth/**", "/welcome/", "/h2-console").permitAll()
                                 .requestMatchers( "/api/v1/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/api/v1/user/**").hasRole("ADMIN, MODERATOR")
