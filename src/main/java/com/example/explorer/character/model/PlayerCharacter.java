@@ -1,5 +1,6 @@
 package com.example.explorer.character.model;
 
+import com.example.explorer.items.Inventory;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,5 +42,8 @@ public class PlayerCharacter{
     @ManyToOne
     @JoinColumn(name = "class_id")
     private PlayerClasses playerClasses;
+
+    @OneToOne
+    private Inventory inventory;
 
 }
