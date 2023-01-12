@@ -42,7 +42,6 @@ public class PlayerCharacter{
     @ManyToOne
     @JoinColumn(name = "class_id")
     private PlayerClasses playerClasses;
-
     @OneToOne
     private Inventory inventory;
 
