@@ -1,4 +1,4 @@
-package com.example.explorer.items;
+package com.example.explorer.items.model;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.persistence.*;
@@ -20,6 +20,6 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inventoryId;
     @Column
-    String name;
+    private String name;
 
 }
