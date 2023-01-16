@@ -4,29 +4,27 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@JsonRootName(value = "weapon")
+@JsonRootName("item")
 @Entity
-@Table(name = "weapons")
-public class Weapon {
-
+@Table(name = "items")
+public class Item {
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long weaponsId;
-    @Column
+    private Long itemsId;
+
+    @Column(unique = true)
     private String name;
     @Column
-    private String Description;
+    private String description;
     @Column
-    private String baseDamage;
+    private Double weight;
     @Column
-    private Boolean magic;
-    @Column
-    private String specialEffect;
+    private Boolean stackable;
 
 }

@@ -10,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WeaponDTO {
-    private String weaponsId;
     private String name;
     private String Description;
     private String baseDamage;
