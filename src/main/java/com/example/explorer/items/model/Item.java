@@ -25,6 +25,14 @@ public class Item {
     @Column
     private Double weight;
     @Column
-    private Boolean stackable;
+    private Integer maxStackAmount;
+    @Column
+    private String magic;
+    @Column
+    private String unique;
+    @Column
+    private String effect;
+
+
 
 }
