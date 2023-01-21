@@ -1,5 +1,6 @@
 package com.example.explorer.items.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,29 +11,20 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonRootName("item")
 @Entity
 @Table(name = "items")
+@JsonRootName(value = "item")
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemsId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Column(unique = true)
     private String name;
-    @Column
     private String description;
-    @Column
     private Double weight;
-    @Column
     private Integer maxStackAmount;
-    @Column
-    private String magic;
-    @Column
-    private String unique;
-    @Column
+    private Boolean magic;
+    private Boolean uniqueItem;
     private String effect;
-
-
 
 }

@@ -14,7 +14,7 @@ public class ItemDTO {
     private String description;
     private Double weight;
     private Integer maxStackAmount;
-    private String magic;
-    private String unique;
+    private Boolean magic;
+    private Boolean uniqueItem;
     private String effect;
 }
