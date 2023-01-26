@@ -21,5 +21,8 @@ public class Inventory {
     private Long inventoryId;
     @Column
     private String name;
+    @Column
+    private int maxCapacity;
+    private int maxWeight;
 
 }
