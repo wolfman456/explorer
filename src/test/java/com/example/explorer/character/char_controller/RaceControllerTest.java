@@ -3,14 +3,13 @@ package com.example.explorer.character.char_controller;
 import com.example.explorer.character.character_serv.RaceService;
 import com.example.explorer.character.model.Race;
 import com.example.explorer.character.model.user_char_dto.RaceDTO;
-import com.example.explorer.exception.InformationExistException;
+import com.example.explorer.utility.exception.InformationExistException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @ExtendWith(MockitoExtension.class)
 public class RaceControllerTest {

@@ -1,20 +1,17 @@
 package com.example.explorer.character.char_controller;
 
 import com.example.explorer.character.character_serv.RaceService;
-import com.example.explorer.character.model.Race;
 import com.example.explorer.character.model.user_char_dto.RaceDTO;
-import com.example.explorer.exception.InformationExistException;
-import com.example.explorer.exception.InformationNotFoundException;
-import com.example.explorer.utility.CustomMapper;
+import com.example.explorer.utility.exception.InformationExistException;
+import com.example.explorer.utility.exception.InformationNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -24,19 +21,18 @@ public class RaceController {
     @Autowired
     private RaceService raceService;
 
+
+
     private final Logger logger = LoggerFactory.getLogger(RaceController.class);
 
     @PostMapping(value = "/create_new_race")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createNewRace(@RequestBody RaceDTO raceDTO){
         logger.info("calling createNewRace");
         try {
             if (raceDTO != null){
-                Race race = raceService.createNewRace(raceDTO);
-                CustomMapper customMapper = new CustomMapper();
-                customMapper.setRace(race);
-                String jsonObject = customMapper.mapper(customMapper);
-                return ResponseEntity.ok(jsonObject);
+                String race = raceService.createNewRace(raceDTO);
+
+                return ResponseEntity.ok(race);
             }
 
         } catch (InformationExistException info){
@@ -49,11 +45,10 @@ public class RaceController {
         return ResponseEntity.badRequest().body("No information found");
     }
     @GetMapping(value = "getall")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllRaces(){
         logger.info("Calling getAllRaces methods =======>");
         try {
-            String raceList = raceService.getAllRaces();
+            List<String> raceList = raceService.getAllRaces();
 
             return ResponseEntity.ok(raceList);
 
@@ -64,7 +59,6 @@ public class RaceController {
     }
 
     @PutMapping(value = "/update_race_by_name/{name}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateRaceByName(@PathVariable(value = "name") String name,
                                            @RequestBody RaceDTO raceDTO){
         if (!name.isEmpty() && raceDTO != null){
@@ -84,7 +78,6 @@ public class RaceController {
     }
 
     @GetMapping(value = "get_race_by_name/{name}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getRaceByName(@PathVariable(value = "name") String name){
         if (!name.isEmpty()){
             try {
@@ -104,7 +97,6 @@ public class RaceController {
     }
 
     @DeleteMapping(value = "delete_race_by_name/{name}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteRaceByName(@PathVariable(value = "name") String name){
         try {
             if (name != null){
@@ -112,7 +104,7 @@ public class RaceController {
             }
         }catch (InformationNotFoundException notFoundException){
             logger.debug("deleteRace failed with message : " + notFoundException.getMessage());
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.badRequest().build();
         }catch (Exception e){
             logger.debug("deleteRace failed with message : " + e.getMessage());
             return ResponseEntity.internalServerError().build();

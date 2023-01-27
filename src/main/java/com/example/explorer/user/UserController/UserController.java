@@ -1,6 +1,6 @@
 package com.example.explorer.user.UserController;
 
-import com.example.explorer.exception.InformationNotFoundException;
+import com.example.explorer.utility.exception.InformationNotFoundException;
 import com.example.explorer.user.UserService.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
