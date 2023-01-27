@@ -5,6 +5,7 @@ import com.example.explorer.character.model.Race;
 import com.example.explorer.character.model.user_char_dto.RaceDTO;
 import com.example.explorer.exception.InformationExistException;
 import com.example.explorer.exception.InformationNotFoundException;
+import com.example.explorer.utility.CustomMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -32,12 +33,10 @@ public class RaceController {
         try {
             if (raceDTO != null){
                 Race race = raceService.createNewRace(raceDTO);
-                ObjectMapper mapper = new ObjectMapper();
-                mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-                String jsonString = mapper
-                        .writerWithDefaultPrettyPrinter()
-                        .writeValueAsString(race);
-                return ResponseEntity.ok(jsonString);
+                CustomMapper customMapper = new CustomMapper();
+                customMapper.setRace(race);
+                String jsonObject = customMapper.mapper(customMapper);
+                return ResponseEntity.ok(jsonObject);
             }
 
         } catch (InformationExistException info){
