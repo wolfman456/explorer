@@ -2,9 +2,13 @@ package com.example.explorer.items.item_serv.item_serv_impl;
 
 import com.example.explorer.items.item_repo.ItemRepo;
 import com.example.explorer.items.item_serv.ItemServ;
+import com.example.explorer.items.model.Item;
 import com.example.explorer.items.model.dto.ItemDTO;
+import com.example.explorer.utility.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ItemServImpl implements ItemServ {
@@ -12,9 +16,13 @@ public class ItemServImpl implements ItemServ {
     @Autowired
     ItemRepo itemRepo;
 
+    @Autowired
+    CustomerMapper customerMapper;
+
     @Override
-    public String getAllItems() {
-        return null;
+    public List<Item> getAllItems() {
+
+        return itemRepo.findAll();
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.example.explorer.items.item_controller;
 
 import com.example.explorer.items.item_serv.ItemServ;
 import com.example.explorer.items.item_serv.WeaponServ;
+import com.example.explorer.items.model.Item;
+import com.example.explorer.items.model.Weapon;
 import com.example.explorer.items.model.dto.ItemDTO;
 import com.example.explorer.items.model.dto.WeaponDTO;
 import com.example.explorer.utility.exception.InformationExistException;
@@ -11,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/item")
@@ -49,11 +53,13 @@ public class ItemWeaponController {
         try {
             String returnItem = null;
             if (type.equalsIgnoreCase("item")){
-                returnItem = itemServ.getAllItems();
+                List<Item> item = itemServ.getAllItems();
+                return ResponseEntity.ok(item);
             }else {
-                returnItem = weaponServ.getAllWeapons();
+                List<Weapon> weapons = weaponServ.getAllWeapons();
+                return ResponseEntity.ok(weapons);
             }
-            return ResponseEntity.ok(returnItem);
+
 
         }catch (InformationNotFoundException informationNotFoundException){
             logger.debug("Information already exits");
