@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/v1/admin/player-class")
 public class ClassController {
 
     @Autowired
-    private ClassService classService;
+    ClassService classService;
 
-    private final Logger logger = LoggerFactory.getLogger(ClassController.class);
+    Logger logger = LoggerFactory.getLogger(ClassController.class);
 
     @PostMapping("/create/")
     public ResponseEntity<?> createClass(@RequestBody ClassDTO classDTO){

@@ -24,7 +24,7 @@ public class ItemServImpl implements ItemServ {
     @Autowired
     CustomerMapper customerMapper;
 
-    private ExplorerResponse explorerResponse;
+    private ExplorerResponse explorerResponse = new ExplorerResponse();
 
     @Override
     public List<Item> getAllItems() {
@@ -45,7 +45,7 @@ public class ItemServImpl implements ItemServ {
     @Override
     public String createItem(ItemDTO itemDTO) {
         if (itemRepo.findItemByName(itemDTO.getName()) != null){
-            throw new InformationExistException(HttpStatus.BAD_REQUEST, "iten with name " + itemDTO.getName() + " already exists", LocalDateTime.now());
+            throw new InformationExistException(HttpStatus.BAD_REQUEST, "item with name " + itemDTO.getName() + " already exists", LocalDateTime.now());
         }
         Item item = Item.builder().name(itemDTO.getName())
                 .uniqueItem(itemDTO.getUniqueItem())

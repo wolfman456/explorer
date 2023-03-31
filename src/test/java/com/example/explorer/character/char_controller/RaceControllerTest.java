@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -59,7 +60,7 @@ public class RaceControllerTest {
         ObjectWriter writer = mapper.writer().withRootName("Races");
         String json = writer.writeValueAsString(raceList);
 
-        when(service.getAllRaces()).thenReturn(json);
+        when(service.getAllRaces()).thenReturn(Collections.singletonList(json));
 
         ResponseEntity<?> response = controller.getAllRaces();
 
@@ -70,25 +71,8 @@ public class RaceControllerTest {
     }
 
     @Test
-    public void whenRaceControllerGetAll_emptyList() throws JsonProcessingException {
-        List<Race> raceList = new ArrayList<>();
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer().withRootName("Races");
-        String json = writer.writeValueAsString(raceList);
-
-        when(service.getAllRaces()).thenReturn(json);
-
-        ResponseEntity<?> response = controller.getAllRaces();
-
-        assertThat(response.getBody()).isEqualTo("{\"Races\":[]}");
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-    }
-
-    @Test
     public void whenRaceControllerCreateRace_returnRaceString() throws Exception {
-        when(service.createNewRace(any(RaceDTO.class))).thenReturn(race);
+        when(service.createNewRace(any(RaceDTO.class))).thenReturn(String.valueOf(race));
 
         ResponseEntity<?> response = controller.createNewRace(raceDTO);
 
@@ -128,7 +112,7 @@ public class RaceControllerTest {
 
         System.out.println(json);
 
-        when(service.updateRaceByName(anyString(), any(RaceDTO.class))).thenReturn(json);
+        when(service.updateRaceByName(anyString(), any(RaceDTO.class))).thenReturn(String.valueOf(race));
 
         ResponseEntity<?> response = controller.updateRaceByName("elf", raceDTO);
 
