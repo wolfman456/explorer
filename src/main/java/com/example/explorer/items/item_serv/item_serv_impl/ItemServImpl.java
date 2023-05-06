@@ -43,7 +43,7 @@ public class ItemServImpl implements ItemServ {
     }
 
     @Override
-    public String createItem(ItemDTO itemDTO) {
+    public String createItem(ItemDTO itemDTO) throws InformationExistException{
         if (itemRepo.findItemByName(itemDTO.getName()) != null){
             throw new InformationExistException(HttpStatus.BAD_REQUEST, "item with name " + itemDTO.getName() + " already exists", LocalDateTime.now());
         }
@@ -60,7 +60,7 @@ public class ItemServImpl implements ItemServ {
     }
 
     @Override
-    public String updateItem(ItemDTO itemDTO, String name) {
+    public String updateItem(ItemDTO itemDTO, String name) throws InformationNotFoundException{
         Item item = itemRepo.findItemByName(name);
         if (item != null){
             if (itemDTO.getUniqueItem() != null){
@@ -94,7 +94,12 @@ public class ItemServImpl implements ItemServ {
     }
 
     @Override
-    public String deleteItem(String name) {
-        return null;
+    public String deleteItem(String name) throws InformationNotFoundException{
+        Item item = itemRepo.findItemByName(name);
+        if (item != null) {
+            return "item deleted";
+        }else {
+            throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "item with name " + name + " was not found", LocalDateTime.now());
+        }
     }
 }
