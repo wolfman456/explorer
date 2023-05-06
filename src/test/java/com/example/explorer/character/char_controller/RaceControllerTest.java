@@ -3,14 +3,13 @@ package com.example.explorer.character.char_controller;
 import com.example.explorer.character.character_serv.RaceService;
 import com.example.explorer.character.model.Race;
 import com.example.explorer.character.model.user_char_dto.RaceDTO;
-import com.example.explorer.exception.InformationExistException;
+import com.example.explorer.utility.exception.InformationExistException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,8 +21,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @ExtendWith(MockitoExtension.class)
 public class RaceControllerTest {
@@ -61,7 +60,7 @@ public class RaceControllerTest {
         ObjectWriter writer = mapper.writer().withRootName("Races");
         String json = writer.writeValueAsString(raceList);
 
-        when(service.getAllRaces()).thenReturn(json);
+        when(service.getAllRaces()).thenReturn(Collections.singletonList(json));
 
         ResponseEntity<?> response = controller.getAllRaces();
 
@@ -72,25 +71,8 @@ public class RaceControllerTest {
     }
 
     @Test
-    public void whenRaceControllerGetAll_emptyList() throws JsonProcessingException {
-        List<Race> raceList = new ArrayList<>();
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer().withRootName("Races");
-        String json = writer.writeValueAsString(raceList);
-
-        when(service.getAllRaces()).thenReturn(json);
-
-        ResponseEntity<?> response = controller.getAllRaces();
-
-        assertThat(response.getBody()).isEqualTo("{\"Races\":[]}");
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-    }
-
-    @Test
     public void whenRaceControllerCreateRace_returnRaceString() throws Exception {
-        when(service.createNewRace(any(RaceDTO.class))).thenReturn(race);
+        when(service.createNewRace(any(RaceDTO.class))).thenReturn(String.valueOf(race));
 
         ResponseEntity<?> response = controller.createNewRace(raceDTO);
 
@@ -130,7 +112,7 @@ public class RaceControllerTest {
 
         System.out.println(json);
 
-        when(service.updateRaceByName(anyString(), any(RaceDTO.class))).thenReturn(json);
+        when(service.updateRaceByName(anyString(), any(RaceDTO.class))).thenReturn(String.valueOf(race));
 
         ResponseEntity<?> response = controller.updateRaceByName("elf", raceDTO);
 

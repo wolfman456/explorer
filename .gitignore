@@ -30,7 +30,7 @@ build/
 !**/src/test/**/build/
 
 ## database ##
-.db
+
 /data
 ### VS Code ###
 .vscode/

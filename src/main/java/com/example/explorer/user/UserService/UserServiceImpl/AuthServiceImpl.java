@@ -6,7 +6,7 @@ import com.example.explorer.user.User_model.UserModel;
 import com.example.explorer.user.UserService.AuthService;
 import com.example.explorer.user.user_repo.RoleRepository;
 import com.example.explorer.user.user_repo.UserRepository;
-import com.example.explorer.exception.InformationExistException;
+import com.example.explorer.utility.exception.InformationExistException;
 import com.example.explorer.security.JwtTokenProvider;
 import com.example.explorer.user.User_model.dto.LoginDto;
 import com.example.explorer.user.User_model.dto.RegisterDto;

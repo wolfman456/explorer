@@ -4,46 +4,60 @@ import com.example.explorer.character.character_serv.RaceService;
 import com.example.explorer.character.char_repo.RaceRepo;
 import com.example.explorer.character.model.Race;
 import com.example.explorer.character.model.user_char_dto.RaceDTO;
-import com.example.explorer.exception.InformationExistException;
-import com.example.explorer.exception.InformationNotFoundException;
+import com.example.explorer.utility.CustomerMapper;
+import com.example.explorer.utility.ExplorerResponse;
+import com.example.explorer.utility.exception.InformationExistException;
+import com.example.explorer.utility.exception.InformationNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class RaceServiceImpl implements RaceService {
+    private final ExplorerResponse explorerResponse = new ExplorerResponse();
+
+    @Autowired
+    private CustomerMapper customerMapper;
 
     @Autowired
     private RaceRepo raceRepo;
     @Override
-    public Race createNewRace(RaceDTO raceDTO) throws InformationExistException{
+    public String createNewRace(RaceDTO raceDTO) throws InformationExistException{
             if (raceRepo.findByRaceName(raceDTO.getRaceName()) == null) {
                 Race race = Race.builder().raceName(raceDTO.getRaceName()).raceDescription(raceDTO.getRaceDescription())
                         .charMod(raceDTO.getCharMod()).conMod(raceDTO.getConMod()).intMod(raceDTO.getIntMod())
                         .strMod(raceDTO.getStrMod())
                         .wisMod(raceDTO.getWisMod())
                         .build();
-                return raceRepo.save(race);
+                raceRepo.save(race);
+                explorerResponse.setRace(race);
+                return customerMapper.mapper(explorerResponse);
+
             }else {
                 throw new InformationExistException(HttpStatus.CONFLICT, "information already exits", LocalDateTime.now());
             }
     }
 
     @Override
-    public String getAllRaces() throws JsonProcessingException {
+    public List<String> getAllRaces() throws JsonProcessingException {
         List<Race> raceList = raceRepo.findAll();
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer().withRootName("Races");
-        String json = writer.writeValueAsString(raceList);
-        System.out.println(json);
-        return json;
+
+
+        List<String> formattedRaceList = new ArrayList<>();
+        for (Race race: raceList) {
+            explorerResponse.setRace(race);
+            formattedRaceList.add(customerMapper.mapper(explorerResponse));
+
+        }
+
+        return formattedRaceList;
     }
 
     @Override

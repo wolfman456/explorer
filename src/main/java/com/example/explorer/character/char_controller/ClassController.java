@@ -3,8 +3,8 @@ package com.example.explorer.character.char_controller;
 import com.example.explorer.character.character_serv.ClassService;
 import com.example.explorer.character.model.PlayerClasses;
 import com.example.explorer.character.model.user_char_dto.ClassDTO;
-import com.example.explorer.exception.InformationExistException;
-import com.example.explorer.exception.InformationNotFoundException;
+import com.example.explorer.utility.exception.InformationExistException;
+import com.example.explorer.utility.exception.InformationNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/v1/admin/player-class")
 public class ClassController {
 
     @Autowired
-    private ClassService classService;
+    ClassService classService;
 
-    private final Logger logger = LoggerFactory.getLogger(ClassController.class);
+    Logger logger = LoggerFactory.getLogger(ClassController.class);
 
     @PostMapping("/create/")
     public ResponseEntity<?> createClass(@RequestBody ClassDTO classDTO){

@@ -1,6 +1,6 @@
 package com.example.explorer.security;
 
-import com.example.explorer.exception.InformationExistException;
+import com.example.explorer.utility.exception.InformationExistException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

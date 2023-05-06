@@ -1,6 +1,6 @@
 package com.example.explorer.user.UserService.UserServiceImpl;
 
-import com.example.explorer.exception.InformationNotFoundException;
+import com.example.explorer.utility.exception.InformationNotFoundException;
 import com.example.explorer.user.UserService.UserService;
 import com.example.explorer.user.User_model.UserModel;
 import com.example.explorer.user.user_repo.UserRepository;

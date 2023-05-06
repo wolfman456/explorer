@@ -1,8 +1,11 @@
 package com.example.explorer.character.model;
 
+import com.example.explorer.items.model.Inventory;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -41,5 +44,7 @@ public class PlayerCharacter{
     @ManyToOne
     @JoinColumn(name = "class_id")
     private PlayerClasses playerClasses;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Inventory> inventory;
 
 }
