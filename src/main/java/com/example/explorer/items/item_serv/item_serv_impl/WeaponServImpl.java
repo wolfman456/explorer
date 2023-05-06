@@ -51,7 +51,7 @@ public class WeaponServImpl implements WeaponServ {
             throw new InformationExistException(HttpStatus.BAD_REQUEST, "A weapon with name " + weaponDTO.getName() + " already exists", LocalDateTime.now());
         }else {
             Weapon weapon = Weapon.builder().baseDamage(weaponDTO.getBaseDamage())
-                    .Description(weaponDTO.getDescription())
+                    .description(weaponDTO.getDescription())
                     .magic(weaponDTO.getMagic())
                     .name(weaponDTO.getName())
                     .specialEffect(weaponDTO.getSpecialEffect())

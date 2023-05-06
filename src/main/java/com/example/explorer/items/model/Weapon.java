@@ -21,7 +21,7 @@ public class Weapon {
     @Column
     private String name;
     @Column
-    private String Description;
+    private String description;
     @Column
     private String baseDamage;
     @Column

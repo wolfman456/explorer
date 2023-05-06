@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class WeaponDTO {
     private String name;
-    private String Description;
+    private String description;
     private String baseDamage;
     private Boolean magic;
     private String specialEffect;

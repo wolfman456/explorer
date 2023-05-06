@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/item")
+@RequestMapping("/api/v1/admin/item")
 public class ItemWeaponController {
     @Autowired
     private WeaponServ weaponServ;
