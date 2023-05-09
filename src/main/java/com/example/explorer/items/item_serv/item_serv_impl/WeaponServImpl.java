@@ -25,9 +25,6 @@ public class WeaponServImpl implements WeaponServ {
     @Autowired
     CustomerMapper customerMapper;
 
-    private ExplorerResponse explorerResponse;
-
-
     @Override
     public List<Weapon> getAllWeapons() {
         return weaponsRepo.findAll();
@@ -37,6 +34,7 @@ public class WeaponServImpl implements WeaponServ {
     public String getWeaponByName(String name) throws InformationNotFoundException{
         Optional<Weapon> weapon = weaponsRepo.findWeaponByName(name);
         if (weapon.isPresent()){
+            ExplorerResponse explorerResponse = new ExplorerResponse();
             explorerResponse.setWeapon(weapon.get());
             return customerMapper.mapper(explorerResponse);
         }else {
@@ -47,7 +45,7 @@ public class WeaponServImpl implements WeaponServ {
     @Override
     public String createWeapon(WeaponDTO weaponDTO) throws InformationNotFoundException{
 
-        if (weaponsRepo.findWeaponByName(weaponDTO.getName()).isEmpty()){
+        if (!weaponsRepo.findWeaponByName(weaponDTO.getName()).isEmpty()){
             throw new InformationExistException(HttpStatus.BAD_REQUEST, "A weapon with name " + weaponDTO.getName() + " already exists", LocalDateTime.now());
         }else {
             Weapon weapon = Weapon.builder().baseDamage(weaponDTO.getBaseDamage())
@@ -57,8 +55,9 @@ public class WeaponServImpl implements WeaponServ {
                     .specialEffect(weaponDTO.getSpecialEffect())
                     .build();
             weaponsRepo.save(weapon);
-            explorerResponse.setWeapon(weapon);
-            return customerMapper.mapper(explorerResponse);
+            ExplorerResponse explorerResponse1 = new ExplorerResponse();
+            explorerResponse1.setWeapon(weapon);
+            return customerMapper.mapper(explorerResponse1);
         }
     }
 

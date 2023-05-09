@@ -91,14 +91,13 @@ public class ItemWeaponController {
     }
 
     @PutMapping("/update/{type}/{name}")
-    public ResponseEntity<?> updateItemByName(@PathVariable(value = "type") String type, @PathVariable(value = "name") String name, @RequestBody WeaponDTO weaponDTO,
-                                              @RequestBody ItemDTO itemDTO) {
+    public ResponseEntity<?> updateItemByName(@PathVariable(value = "type") String type, @PathVariable(value = "name") String name, @RequestBody CreateItemDTO createItemDTO) {
         try {
             String returnObject = null;
             if (type.equalsIgnoreCase("weapon")) {
-                returnObject = weaponServ.updateWeapon(weaponDTO, name);
+                returnObject = weaponServ.updateWeapon(createItemDTO.getWeaponDTO(), name);
             } else {
-                returnObject = itemServ.updateItem(itemDTO, name);
+                returnObject = itemServ.updateItem(createItemDTO.getItemDTO(), name);
             }
             return ResponseEntity.ok(returnObject);
 
