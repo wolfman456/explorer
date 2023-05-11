@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -20,6 +22,7 @@ import lombok.Setter;
 public class ExplorerResponse {
 
     private Race race;
+    private List<Race> raceList;
     private Item item;
     private UserModel userModel;
     private Weapon weapon;
