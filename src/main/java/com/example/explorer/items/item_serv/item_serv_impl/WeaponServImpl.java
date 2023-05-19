@@ -25,6 +25,12 @@ public class WeaponServImpl implements WeaponServ {
     @Autowired
     CustomerMapper customerMapper;
 
+<<<<<<< HEAD
+=======
+    private ExplorerResponse explorerResponse;
+
+
+>>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
     @Override
     public List<Weapon> getAllWeapons() {
         return weaponsRepo.findAll();
@@ -34,7 +40,10 @@ public class WeaponServImpl implements WeaponServ {
     public String getWeaponByName(String name) throws InformationNotFoundException{
         Optional<Weapon> weapon = weaponsRepo.findWeaponByName(name);
         if (weapon.isPresent()){
+<<<<<<< HEAD
             ExplorerResponse explorerResponse = new ExplorerResponse();
+=======
+>>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
             explorerResponse.setWeapon(weapon.get());
             return customerMapper.mapper(explorerResponse);
         }else {
@@ -45,7 +54,11 @@ public class WeaponServImpl implements WeaponServ {
     @Override
     public String createWeapon(WeaponDTO weaponDTO) throws InformationNotFoundException{
 
+<<<<<<< HEAD
         if (weaponsRepo.findWeaponByName(weaponDTO.getName()).isPresent()){
+=======
+        if (weaponsRepo.findWeaponByName(weaponDTO.getName()).isEmpty()){
+>>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
             throw new InformationExistException(HttpStatus.BAD_REQUEST, "A weapon with name " + weaponDTO.getName() + " already exists", LocalDateTime.now());
         }else {
             Weapon weapon = Weapon.builder().baseDamage(weaponDTO.getBaseDamage())
@@ -55,6 +68,7 @@ public class WeaponServImpl implements WeaponServ {
                     .specialEffect(weaponDTO.getSpecialEffect())
                     .build();
             weaponsRepo.save(weapon);
+<<<<<<< HEAD
             ExplorerResponse explorerResponse1 = new ExplorerResponse();
             explorerResponse1.setWeapon(weapon);
             return customerMapper.mapper(explorerResponse1);
@@ -84,11 +98,15 @@ public class WeaponServImpl implements WeaponServ {
             }
             ExplorerResponse explorerResponse = new ExplorerResponse();
             explorerResponse.setWeapon(weapon.get());
+=======
+            explorerResponse.setWeapon(weapon);
+>>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
             return customerMapper.mapper(explorerResponse);
         }
     }
 
     @Override
+<<<<<<< HEAD
     public String deleteWeapon(String name) {
         if (weaponsRepo.findWeaponByName(name).isEmpty()){
             throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "no weapon with name " + name + " found", LocalDateTime.now());
@@ -96,5 +114,14 @@ public class WeaponServImpl implements WeaponServ {
             weaponsRepo.deleteWeaponByName(name);
             return "Weapon with name " + name + " deleted";
         }
+=======
+    public String updateWeapon(WeaponDTO weaponDTO, String name) {
+        return null;
+    }
+
+    @Override
+    public String deleteWeapon(String name) {
+        return null;
+>>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
     }
 }

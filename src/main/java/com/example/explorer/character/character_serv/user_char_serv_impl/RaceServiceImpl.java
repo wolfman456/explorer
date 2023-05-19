@@ -16,10 +16,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class RaceServiceImpl implements RaceService {
+    private final ExplorerResponse explorerResponse = new ExplorerResponse();
+
+    @Autowired
+    private CustomerMapper customerMapper;
 
     @Autowired
     private CustomerMapper customerMapper;
@@ -35,7 +40,10 @@ public class RaceServiceImpl implements RaceService {
                         .wisMod(raceDTO.getWisMod())
                         .build();
                 raceRepo.save(race);
+<<<<<<< HEAD
                 ExplorerResponse explorerResponse = new ExplorerResponse();
+=======
+>>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
                 explorerResponse.setRace(race);
                 return customerMapper.mapper(explorerResponse);
 
@@ -45,10 +53,25 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
+<<<<<<< HEAD
     public List<Race> getAllRaces() {
         List<Race> raceList = raceRepo.findAll();
 
         return raceList;
+=======
+    public List<String> getAllRaces() throws JsonProcessingException {
+        List<Race> raceList = raceRepo.findAll();
+
+
+        List<String> formattedRaceList = new ArrayList<>();
+        for (Race race: raceList) {
+            explorerResponse.setRace(race);
+            formattedRaceList.add(customerMapper.mapper(explorerResponse));
+
+        }
+
+        return formattedRaceList;
+>>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
     }
 
     @Override

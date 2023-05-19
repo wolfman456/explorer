@@ -56,7 +56,11 @@ public class RaceControllerTest {
         List<Race> raceList = new ArrayList<>();
         raceList.add(race);
 
+<<<<<<< HEAD
         when(service.getAllRaces()).thenReturn(raceList);
+=======
+        when(service.getAllRaces()).thenReturn(Collections.singletonList(json));
+>>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
 
         ResponseEntity<?> response = controller.getAllRaces();
 

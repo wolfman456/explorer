@@ -1,7 +1,6 @@
 package com.example.explorer.character.char_controller;
 
 import com.example.explorer.character.character_serv.RaceService;
-import com.example.explorer.character.model.Race;
 import com.example.explorer.character.model.user_char_dto.RaceDTO;
 import com.example.explorer.utility.exception.InformationExistException;
 import com.example.explorer.utility.exception.InformationNotFoundException;
@@ -49,7 +48,11 @@ public class RaceController {
     public ResponseEntity<?> getAllRaces(){
         logger.info("Calling getAllRaces methods =======>");
         try {
+<<<<<<< HEAD
             List<Race> raceList = raceService.getAllRaces();
+=======
+            List<String> raceList = raceService.getAllRaces();
+>>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
 
             return ResponseEntity.ok(raceList);
 
