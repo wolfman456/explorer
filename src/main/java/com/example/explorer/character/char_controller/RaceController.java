@@ -48,14 +48,9 @@ public class RaceController {
     public ResponseEntity<?> getAllRaces(){
         logger.info("Calling getAllRaces methods =======>");
         try {
-<<<<<<< HEAD
-            List<Race> raceList = raceService.getAllRaces();
-=======
+
             List<String> raceList = raceService.getAllRaces();
->>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
-
             return ResponseEntity.ok(raceList);
-
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseEntity.badRequest().body("failed to get races");

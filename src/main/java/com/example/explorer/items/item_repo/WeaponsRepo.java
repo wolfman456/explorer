@@ -9,8 +9,6 @@ import java.util.Optional;
 @Repository
 public interface WeaponsRepo extends JpaRepository<Weapon, Long> {
     Optional<Weapon> findWeaponByName(String name);
-<<<<<<< HEAD
+    <HEAD
     Weapon deleteWeaponByName(String name);
-=======
->>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
 }
