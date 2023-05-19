@@ -6,7 +6,6 @@ import com.example.explorer.character.model.user_char_dto.RaceDTO;
 import com.example.explorer.utility.exception.InformationExistException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 
@@ -56,11 +55,8 @@ public class RaceControllerTest {
 
         List<Race> raceList = new ArrayList<>();
         raceList.add(race);
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer().withRootName("Races");
-        String json = writer.writeValueAsString(raceList);
 
-        when(service.getAllRaces()).thenReturn(Collections.singletonList(json));
+        when(service.getAllRaces()).thenReturn(Collections.singletonList(raceList));
 
         ResponseEntity<?> response = controller.getAllRaces();
 

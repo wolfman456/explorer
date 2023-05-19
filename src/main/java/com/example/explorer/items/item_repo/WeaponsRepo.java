@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface WeaponsRepo extends JpaRepository<Weapon, Long> {
     Optional<Weapon> findWeaponByName(String name);
+    <HEAD
+    Weapon deleteWeaponByName(String name);
 }

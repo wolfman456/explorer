@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface RaceService {
     String createNewRace(RaceDTO raceDTO) throws Exception;
-    List<String> getAllRaces() throws JsonProcessingException;
+    <Race> List<Race> getAllRaces() throws JsonProcessingException;
+
     String updateRaceByName(String name, RaceDTO raceDTO) throws JsonProcessingException;
     String getRaceByName(String name) throws JsonProcessingException;
 
