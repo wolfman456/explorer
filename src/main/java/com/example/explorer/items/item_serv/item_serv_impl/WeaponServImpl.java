@@ -45,7 +45,7 @@ public class WeaponServImpl implements WeaponServ {
     @Override
     public String createWeapon(WeaponDTO weaponDTO) throws InformationNotFoundException{
 
-        if (!weaponsRepo.findWeaponByName(weaponDTO.getName()).isEmpty()){
+        if (weaponsRepo.findWeaponByName(weaponDTO.getName()).isPresent()){
             throw new InformationExistException(HttpStatus.BAD_REQUEST, "A weapon with name " + weaponDTO.getName() + " already exists", LocalDateTime.now());
         }else {
             Weapon weapon = Weapon.builder().baseDamage(weaponDTO.getBaseDamage())
@@ -63,11 +63,38 @@ public class WeaponServImpl implements WeaponServ {
 
     @Override
     public String updateWeapon(WeaponDTO weaponDTO, String name) {
-        return null;
+        Optional<Weapon> weapon = weaponsRepo.findWeaponByName(name);
+        if (weapon.isEmpty()){
+            throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "no weapon with name " + name + " found", LocalDateTime.now());
+        }else {
+            if (weaponDTO.getName() != null){
+                weapon.get().setName(weaponDTO.getName());
+            }
+            if (weaponDTO.getDescription() != null){
+                weapon.get().setDescription(weaponDTO.getDescription());
+            }
+            if (weaponDTO.getMagic() != null){
+                weapon.get().setMagic(weaponDTO.getMagic());
+            }
+            if (weaponDTO.getSpecialEffect() != null){
+                weapon.get().setSpecialEffect(weaponDTO.getSpecialEffect());
+            }
+            if (weaponDTO.getBaseDamage() != null){
+                weapon.get().setBaseDamage(weaponDTO.getBaseDamage());
+            }
+            ExplorerResponse explorerResponse = new ExplorerResponse();
+            explorerResponse.setWeapon(weapon.get());
+            return customerMapper.mapper(explorerResponse);
+        }
     }
 
     @Override
     public String deleteWeapon(String name) {
-        return null;
+        if (weaponsRepo.findWeaponByName(name).isEmpty()){
+            throw new InformationNotFoundException(HttpStatus.NOT_FOUND, "no weapon with name " + name + " found", LocalDateTime.now());
+        }else {
+            weaponsRepo.deleteWeaponByName(name);
+            return "Weapon with name " + name + " deleted";
+        }
     }
 }
