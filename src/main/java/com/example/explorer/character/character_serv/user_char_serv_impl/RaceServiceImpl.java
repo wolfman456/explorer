@@ -27,9 +27,6 @@ public class RaceServiceImpl implements RaceService {
     private CustomerMapper customerMapper;
 
     @Autowired
-    private CustomerMapper customerMapper;
-
-    @Autowired
     private RaceRepo raceRepo;
     @Override
     public String createNewRace(RaceDTO raceDTO) throws InformationExistException{
@@ -40,10 +37,7 @@ public class RaceServiceImpl implements RaceService {
                         .wisMod(raceDTO.getWisMod())
                         .build();
                 raceRepo.save(race);
-<<<<<<< HEAD
                 ExplorerResponse explorerResponse = new ExplorerResponse();
-=======
->>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
                 explorerResponse.setRace(race);
                 return customerMapper.mapper(explorerResponse);
 
@@ -53,13 +47,7 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-<<<<<<< HEAD
-    public List<Race> getAllRaces() {
-        List<Race> raceList = raceRepo.findAll();
-
-        return raceList;
-=======
-    public List<String> getAllRaces() throws JsonProcessingException {
+    public List<String> getAllRaces() {
         List<Race> raceList = raceRepo.findAll();
 
 
@@ -71,7 +59,6 @@ public class RaceServiceImpl implements RaceService {
         }
 
         return formattedRaceList;
->>>>>>> fdfcb05288bd7dd02b25283a1fa8a3bb22ece579
     }
 
     @Override
